@@ -1,0 +1,61 @@
+{
+      "PIN_AnalogWrite": {
+		"menu": [
+			["P0", "P0"],
+			["P1", "P1"]
+		]
+	},
+	"PIN_AnalogRead": {
+		"menu": [
+			["P0", "P0"],
+			["P1", "P1"]
+		]
+	},
+	"PIN_DigitalWrite": {
+		"menu": [
+            ["P0", "P0"],
+            ["P1", "P1"],
+            ["P2", "P2"],
+            ["P3", "P3"],
+            ["P4", "P4"],
+            ["P6", "P6"],
+            ["P8", "P8"],
+            ["P9", "P9"],
+            ["P10", "P10"],
+            ["P12", "P12"],
+            ["P13", "P13"],
+            ["P14", "P14"],
+            ["P15", "P15"]
+		],
+        "default_trafficLight_PIN1": "P2",
+        "default_trafficLight_PIN2": "P3"
+	},
+	"PIN_DigitalRead": {
+		"menu": [
+            ["P0", "P0"],
+            ["P1", "P1"],
+            ["P2", "P2"],
+            ["P3", "P3"],
+            ["P4", "P4"],
+            ["P6", "P6"],
+            ["P8", "P8"],
+            ["P9", "P9"],
+            ["P10", "P10"],
+            ["P12", "P12"],
+            ["P13", "P13"],
+            ["P14", "P14"],
+            ["P15", "P15"]
+		],
+        "default_readUlrasonicSensor_TRIGPIN": "P2",
+        "default_readUlrasonicSensor_ECHOPIN": "P3"
+	},
+	"PINMODE":{
+		"menu": [
+			
+			["INPUT", "INPUT"],
+			["OUTPUT", "OUTPUT"],
+			["INPUT_PULLUP", "INPUT_PULLUP"]
+		]
+	}
+
+}
