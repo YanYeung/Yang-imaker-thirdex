@@ -122,6 +122,12 @@ enum IDMDIGITAL {
     PYROELECTRIC_SENSOR,
 
 }
+enum ODMDIGITAL {
+    //% blockId="DOM_LED" block="LED"
+    LED,
+
+
+}
 
 enum IAMANALOG {
 
@@ -173,6 +179,13 @@ enum ONEBUTTONTRIG {
     false,
 }
 
+enum PinLevel {
+    //% block="HIGH"
+    HIGH,
+    //% block="LOW"
+    LOW
+}
+
 //% color="#5650a5" iconWidth=50 iconHeight=40
 namespace imaker_sensor {
     //% block="read [INPUTMODULEDIGITAL] on [IDMPIN]" blockType="boolean"
@@ -186,10 +199,20 @@ namespace imaker_sensor {
             Generator.addSetup(`pinMode_${inputModulePin}`,`pinMode(${inputModulePin}, INPUT);`);
         }
         if(inputModule === 'BUTTON'){//如果是按键，生成如下代码
-            Generator.addCode(`!digitalRead(${inputModulePin})`);
+            if (inputModulePin == 'P0' || inputModulePin == 'P1'){
+                Generator.addCode(`!digitalRead(${inputModulePin})`);
+            }
+            else{
+                Generator.addCode(`!digital_read(${inputModulePin})`);
+            }
         }
         else{//其他传感器，生成如下代码
-            Generator.addCode(`digitalRead(${inputModulePin})`);
+            if (inputModulePin == 'P0' || inputModulePin == 'P1'){
+                Generator.addCode(`digitalRead(${inputModulePin})`);
+            }
+            else{
+                Generator.addCode(`digital_read(${inputModulePin})`);
+            }
         }
     }
 
@@ -202,17 +225,29 @@ namespace imaker_sensor {
         Generator.addCode(`analogRead(${inputModulePin})`);
     }
 
-        //% block="read ulrasonic sensor Unit [UNIT] trig[TRIGPIN] echo[ECHOPIN]" blockType="reporter"
-    //% UNIT.shadow="dropdown" UNIT.options="SRUNIT" UNIT.defl="SRUNIT.CM"
-    //% TRIGPIN.shadow="dropdown" TRIGPIN.options="PIN_DigitalRead"
-    //% ECHOPIN.shadow="dropdown" ECHOPIN.options="PIN_DigitalRead"
-    export function readUlrasonicSensor(parameter: any, block: any) {
-        let unit = parameter.UNIT.code;
-        let trigpin = parameter.TRIGPIN.code;
-        let echopin = parameter.ECHOPIN.code;
-        Generator.addInclude("include_DFRobot_URM10", `#include <DFRobot_URM10.h>`);
-        Generator.addObject("object_DFRobot_URM10", `DFRobot_URM10`, `sr04;`);
-        Generator.addCode(`sr04.getDistance${unit}(${trigpin},${echopin})`);
+        //% block="read ulrasonic sensor （cm）" blockType="reporter"
+    export function readSonarI2C(parameter: any, block: any) {
+        Generator.addInclude("include_Imaker_Sonar", `#include <Imaker_Sonar.h>`);
+        Generator.addObject("object_Imaker_Sonar", `Imaker_Sonar`, `sonar;`);
+        Generator.addCode(`sonar.readSonar()`);
+    }
+
+    //% block="write [OUTPUTMODULEDIGITAL] on [ODMPIN] [LEVEL]" blockType="command"
+    //% OUTPUTMODULEDIGITAL.shadow="dropdown" OUTPUTMODULEDIGITAL.options="ODMDIGITAL" OUTPUTMODULEDIGITAL.defl="ODMDIGITAL.LED"
+    //% ODMPIN.shadow="dropdown" ODMPIN.options="PIN_DigitalWrite"
+    //% LEVEL.shadow="dropdown" LEVEL.options="PinLevel" LEVEL.defl="PinLevel.HIGH"
+    export function outputDigitalModule(parameter: any, block: any) {
+        let outputModule = parameter.OUTPUTMODULEDIGITAL.code;
+        let outputModulePin = parameter.ODMPIN.code;
+        let level = parameter.LEVEL.code;
+        Generator.addSetup(`pinMode_${outputModulePin}`,`pinMode(${outputModulePin}, OUTPUT);`);
+        if (outputModulePin == 'P0' || outputModulePin == 'P1'){
+            Generator.addCode(`digitalWrite(${outputModulePin}, ${level});`);
+        }
+        else{
+
+            Generator.addCode(`digital_write(${outputModulePin}, ${level});`);
+        }
     }
 
     //% block="STOP  MOTOR[motor] " blockType="command"

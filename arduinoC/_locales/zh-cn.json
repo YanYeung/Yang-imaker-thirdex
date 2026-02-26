@@ -1,5 +1,9 @@
 {
     "imaker_sensor.inputDigitalModule|block": "读取 [INPUTMODULEDIGITAL] [IDMPIN]",
+    "imaker_sensor.outputDigitalModule|block":"设置 [OUTPUTMODULEDIGITAL] [ODMPIN] [LEVEL]",
+    "imaker_sensor.ODMDIGITAL.LED|menu":"LED灯",
+    "imaker_sensor.PinLevel.HIGH|menu":"亮",
+    "imaker_sensor.PinLevel.LOW|menu":"灭",
     "imaker_sensor.IDMDIGITAL.MAGNETIC_SENSOR|menu":"磁控传感器",
     "imaker_sensor.IDMDIGITAL.TILT_SENSOR|menu":"倾角传感器",
     "imaker_sensor.IDMDIGITAL.INFRARED_PROXIMITY_SENSOR|menu":"红外接近传感器",
@@ -33,7 +37,7 @@
     "imaker_sensor.DHT_TH.Temperature|menu":"温度(℃)",
     "imaker_sensor.DHT_TH.Humidity|menu":"湿度(%rh)",
     "imaker_sensor.readdhtSensor|block": "读取[IAMPIN] [DHTMODULE] [TH]",
-    "imaker_sensor.readUlrasonicSensor|block": "读取超声波距离 单位[UNIT] trig[TRIGPIN] echo[ECHOPIN]",
+    "imaker_sensor.readSonarI2C|block": "读取I2C超声波距离（厘米）",
     "imaker_sensor.ONEBUTTON|block": "OneButton 引脚 [BTNPIN] 模式[MODE] 触发[TRIG]",
     "imaker_sensor.ONEBUTTONMODE.attachClick|menu":"单击",
     "imaker_sensor.ONEBUTTONMODE.attachDoubleClick|menu":"双击",
