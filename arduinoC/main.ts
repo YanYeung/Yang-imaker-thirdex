@@ -190,7 +190,7 @@ enum PinLevel {
 namespace imaker_sensor {
     //% block="read [INPUTMODULEDIGITAL] on [IDMPIN]" blockType="boolean"
     //% INPUTMODULEDIGITAL.shadow="dropdown" INPUTMODULEDIGITAL.options="IDMDIGITAL" INPUTMODULEDIGITAL.defl="IDMDIGITAL.MAGNETIC_SENSOR"
-    //% IDMPIN.shadow="dropdown" IDMPIN.options="PIN_DigitalRead"
+    //% IDMPIN.shadow="dropdown" IDMPIN.options="MOTORBIT_PIN_DigitalRead"
     export function inputDigitalModule(parameter: any, block: any) {
         let inputModule = parameter.INPUTMODULEDIGITAL.code;
         let inputModulePin = parameter.IDMPIN.code;
@@ -234,7 +234,7 @@ namespace imaker_sensor {
 
     //% block="write [OUTPUTMODULEDIGITAL] on [ODMPIN] [LEVEL]" blockType="command"
     //% OUTPUTMODULEDIGITAL.shadow="dropdown" OUTPUTMODULEDIGITAL.options="ODMDIGITAL" OUTPUTMODULEDIGITAL.defl="ODMDIGITAL.LED"
-    //% ODMPIN.shadow="dropdown" ODMPIN.options="PIN_DigitalWrite"
+    //% ODMPIN.shadow="dropdown" ODMPIN.options="MOTORBIT_PIN_DigitalWrite"
     //% LEVEL.shadow="dropdown" LEVEL.options="PinLevel" LEVEL.defl="PinLevel.HIGH"
     export function outputDigitalModule(parameter: any, block: any) {
         let outputModule = parameter.OUTPUTMODULEDIGITAL.code;
@@ -248,6 +248,18 @@ namespace imaker_sensor {
 
             Generator.addCode(`digital_write(${outputModulePin}, ${level});`);
         }
+    }
+
+    //% block="set [OUTPUTMODULEDIGITAL] on [ODMPIN] brightness [BRIGHTNESS]" blockType="command"
+    //% OUTPUTMODULEDIGITAL.shadow="dropdown" OUTPUTMODULEDIGITAL.options="ODMDIGITAL" OUTPUTMODULEDIGITAL.defl="ODMDIGITAL.LED"
+
+    //% ODMPIN.shadow="dropdown" ODMPIN.options="PIN_AnalogWrite"
+    //% BRIGHTNESS.shadow="range" BRIGHTNESS.params.min=0 BRIGHTNESS.params.max=100 BRIGHTNESS.defl=100
+    export function setLedBrightness(parameter: any, block: any) {
+        let pin = parameter.ODMPIN.code;
+        let brightness = parameter.BRIGHTNESS.code;
+        Generator.addSetup(`pinMode_${pin}`,`pinMode(${pin}, OUTPUT);`);
+        Generator.addCode(`analogWrite(${pin}, map(${brightness}, 0, 100, 0, 255));`);
     }
 
     //% block="STOP  MOTOR[motor] " blockType="command"
@@ -298,6 +310,8 @@ namespace imaker_sensor {
         Generator.addObject("MotorObject", "EM_Microbit_Motor", "motorbit;");
         Generator.addCode(`motorbit.servo360(${servo},${angle});`);
     }
+
+
 
     
 }

@@ -1,6 +1,7 @@
 {
     "imaker_sensor.inputDigitalModule|block": "读取 [INPUTMODULEDIGITAL] [IDMPIN]",
     "imaker_sensor.outputDigitalModule|block":"设置 [OUTPUTMODULEDIGITAL] [ODMPIN] [LEVEL]",
+    "imaker_sensor.setLedBrightness|block": "设置 [OUTPUTMODULEDIGITAL] [ODMPIN] 亮度 [BRIGHTNESS]%",
     "imaker_sensor.ODMDIGITAL.LED|menu":"LED灯",
     "imaker_sensor.PinLevel.HIGH|menu":"亮",
     "imaker_sensor.PinLevel.LOW|menu":"灭",
