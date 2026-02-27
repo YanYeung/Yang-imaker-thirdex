@@ -108,6 +108,8 @@ class EM_Microbit_Motor
   ~EM_Microbit_Motor();
   
   void    servo(Servos index, int degree),
+          servo270(Servos index, int degree),
+          servo360(Servos index, int degree),
           motorRun(Motors index, Dir direction, int speed),
           stepperDegree(Steppers index, Dir direction, int degree),
           stepperTurn(Steppers index, Dir direction, double turn),

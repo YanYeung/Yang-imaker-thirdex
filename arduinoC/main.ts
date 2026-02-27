@@ -273,16 +273,30 @@ namespace imaker_sensor {
 
     }
    
-    //% block=" SERVO[servo]speed[SPEED] " blockType="command"
+
+
+    //% block=" SERVO270[servo]angle[ANGLE] " blockType="command"
     //%servo.shadow="dropdown" servo.options="servo"
-    //% SPEED.shadow="range"   SPEED.params.min=0    SPEED.params.max=180 SPEED.defl=90
+    //% ANGLE.shadow="range"   ANGLE.params.min=0    ANGLE.params.max=270 ANGLE.defl=135
     
-    export function servo(parameter: any, block: any) {
+    export function servo270(parameter: any, block: any) {
         let servo = parameter.servo.code
-        let speed = parameter.SPEED.code
+        let angle = parameter.ANGLE.code
         Generator.addInclude("Motor", "#include <EM_Microbit_Motor.h>");
         Generator.addObject("MotorObject", "EM_Microbit_Motor", "motorbit;");
-        Generator.addCode(`motorbit.servo(${servo},${speed});`);
+        Generator.addCode(`motorbit.servo270(${servo},${angle});`);
+    }
+
+    //% block=" SERVO360[servo]angle[ANGLE] " blockType="command"
+    //%servo.shadow="dropdown" servo.options="servo"
+    //% ANGLE.shadow="range"   ANGLE.params.min=0    ANGLE.params.max=360 ANGLE.defl=180
+    
+    export function servo360(parameter: any, block: any) {
+        let servo = parameter.servo.code
+        let angle = parameter.ANGLE.code
+        Generator.addInclude("Motor", "#include <EM_Microbit_Motor.h>");
+        Generator.addObject("MotorObject", "EM_Microbit_Motor", "motorbit;");
+        Generator.addCode(`motorbit.servo360(${servo},${angle});`);
     }
 
     

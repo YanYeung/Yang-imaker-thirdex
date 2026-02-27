@@ -23,6 +23,34 @@ void EM_Microbit_Motor::servo(Servos index, int degree)
   this->setPwm(index + 7, 0, value);
 }
 
+void EM_Microbit_Motor::servo270(Servos index, int degree)
+{
+  if (!initialized) {
+    this->initPCA9685();
+  }
+  // 100hz
+  uint32_t v_us = (degree * 20 / 3 + 600); // 0.6ms ~ 2.4ms
+  uint32_t value = v_us * 4095 / (1000000 / 50);
+  this->setPwm(index + 7, 0, value);
+}
+
+void EM_Microbit_Motor::servo360(Servos index, int degree)
+{
+  if (!initialized) {
+    this->initPCA9685();
+  }
+  
+  // 0.5ms (500us) -> 0 degree
+  // 2.5ms (2500us) -> 360 degree
+  
+  if (degree > 360) degree = 360;
+  if (degree < 0) degree = 0;
+  
+  uint32_t v_us = (degree * 2000 / 360 + 500); 
+  uint32_t value = v_us * 4095 / (1000000 / 50);
+  this->setPwm(index + 7, 0, value);
+}
+
 void EM_Microbit_Motor::motorRun(Motors index, Dir direction, int speed)
 {
   if (!initialized) {
