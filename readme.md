@@ -1,8 +1,8 @@
 # 人工智能科创实践套装
 
 这是一个专为人工智能科创实践套装开发的 Mind+ 图形化编程扩展库。通过本扩展，你可以轻松控制套装内各种传感器、电机和舵机。
-![alt text](arduinoC/_images/featured.png)
 
+![alt text](arduinoC/_images/featured.png)
 
 ## 功能模块
 
