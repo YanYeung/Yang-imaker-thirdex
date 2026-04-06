@@ -200,6 +200,7 @@ namespace imaker_sensor {
         }
         if(inputModule === 'BUTTON'){//如果是按键，生成如下代码
             if (inputModulePin == 'P0' || inputModulePin == 'P1'){
+                Generator.addSetup(`pinMode_${inputModulePin}`,`pinMode(${inputModulePin}, INPUT);`);
                 Generator.addCode(`!digitalRead(${inputModulePin})`);
             }
             else{
@@ -208,6 +209,7 @@ namespace imaker_sensor {
         }
         else{//其他传感器，生成如下代码
             if (inputModulePin == 'P0' || inputModulePin == 'P1'){
+                Generator.addSetup(`pinMode_${inputModulePin}`,`pinMode(${inputModulePin}, INPUT);`);
                 Generator.addCode(`digitalRead(${inputModulePin})`);
             }
             else{
@@ -241,6 +243,7 @@ namespace imaker_sensor {
         let outputModulePin = parameter.ODMPIN.code;
         let level = parameter.LEVEL.code;
         if (outputModulePin == 'P0' || outputModulePin == 'P1'){
+            Generator.addSetup(`pinMode_${outputModulePin}`,`pinMode(${outputModulePin}, OUTPUT);`);
             Generator.addCode(`digitalWrite(${outputModulePin}, ${level});`);
         }
         else{

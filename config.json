@@ -12,7 +12,7 @@
   "license": "MIT",
   "isBoard": false,
   "id": "imaker_sensor",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "platform": [ "win", "mac", "web" ],
   "asset": {
     "arduinoC": {
