@@ -240,7 +240,6 @@ namespace imaker_sensor {
         let outputModule = parameter.OUTPUTMODULEDIGITAL.code;
         let outputModulePin = parameter.ODMPIN.code;
         let level = parameter.LEVEL.code;
-        Generator.addSetup(`pinMode_${outputModulePin}`,`pinMode(${outputModulePin}, OUTPUT);`);
         if (outputModulePin == 'P0' || outputModulePin == 'P1'){
             Generator.addCode(`digitalWrite(${outputModulePin}, ${level});`);
         }
@@ -258,7 +257,6 @@ namespace imaker_sensor {
     export function setLedBrightness(parameter: any, block: any) {
         let pin = parameter.ODMPIN.code;
         let brightness = parameter.BRIGHTNESS.code;
-        Generator.addSetup(`pinMode_${pin}`,`pinMode(${pin}, OUTPUT);`);
         Generator.addCode(`analogWrite(${pin}, map(${brightness}, 0, 100, 0, 255));`);
     }
 
