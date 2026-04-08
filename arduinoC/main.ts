@@ -234,6 +234,19 @@ namespace imaker_sensor {
         Generator.addCode(`sonar.readSonar()`);
     }
 
+    //% block="read ulrasonic sensor Unit [UNIT] trig[TRIGPIN] echo[ECHOPIN]" blockType="reporter"
+    //% UNIT.shadow="dropdown" UNIT.options="SRUNIT" UNIT.defl="SRUNIT.CM"
+    //% TRIGPIN.shadow="dropdown" TRIGPIN.options="PIN_AnalogRead" TRIGPIN.defl="P0"
+    //% ECHOPIN.shadow="dropdown" ECHOPIN.options="PIN_AnalogRead" ECHOPIN.defl="P1"
+    export function readUlrasonicSensor(parameter: any, block: any) {
+        let unit = parameter.UNIT.code;
+        let trigpin = parameter.TRIGPIN.code;
+        let echopin = parameter.ECHOPIN.code;
+        Generator.addInclude("include_DFRobot_URM10", `#include <DFRobot_URM10.h>`);
+        Generator.addObject("object_DFRobot_URM10", `DFRobot_URM10`, `sr04;`);
+        Generator.addCode(`sr04.getDistance${unit}(${trigpin},${echopin})`);
+    }
+
     //% block="write [OUTPUTMODULEDIGITAL] on [ODMPIN] [LEVEL]" blockType="command"
     //% OUTPUTMODULEDIGITAL.shadow="dropdown" OUTPUTMODULEDIGITAL.options="ODMDIGITAL" OUTPUTMODULEDIGITAL.defl="ODMDIGITAL.LED"
     //% ODMPIN.shadow="dropdown" ODMPIN.options="MOTORBIT_PIN_DigitalWrite"

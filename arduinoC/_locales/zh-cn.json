@@ -74,5 +74,6 @@
     "imaker_sensor.I2Cmode.kInputPullDown|menu": "下拉输入模式",
     "imaker_sensor.I2Cmode.kOutput|menu": "输出模式",
     "imaker_sensor.I2Cmode.kPwm|menu": "PWM模式(仅支持E1、E2)",
-    "imaker_sensor.I2Cmode.kPwm1|menu": "舵机模式(仅支持E1、E2)"
+    "imaker_sensor.I2Cmode.kPwm1|menu": "舵机模式(仅支持E1、E2)",
+    "imaker_sensor.readUlrasonicSensor|block": "读取超声波距离 单位[UNIT] trig[TRIGPIN] echo[ECHOPIN]"
 }
