@@ -8,5 +8,6 @@
 	"mega2560": false,
 	"beetleProMini": false,
 	"fireBeetleEsp32":false,
+	"esp32s3bit":true,
 	"include": "EM_Microbit_Motor.h"
 }
