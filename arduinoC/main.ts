@@ -193,8 +193,7 @@ namespace imaker_sensor {
     //% IDMPIN.shadow="dropdown" IDMPIN.options="MOTORBIT_PIN_DigitalRead"
     export function inputDigitalModule(parameter: any, block: any) {
         let inputModule = parameter.INPUTMODULEDIGITAL.code;
-        let inputModulePin = parameter.IDMPIN.code;
-        
+        let inputModulePin = parameter.IDMPIN.code;  
         if(Generator.board === 'pico'){//如果是pico板，生成如下代码
             Generator.addSetup(`pinMode_${inputModulePin}`,`pinMode(${inputModulePin}, INPUT);`);
         }
@@ -204,6 +203,7 @@ namespace imaker_sensor {
                 Generator.addCode(`!digitalRead(${inputModulePin})`);
             }
             else{
+                Generator.addInclude("include_K10", `#include "unihiker_k10.h"`);
                 Generator.addCode(`!digital_read(${inputModulePin})`);
             }
         }
@@ -213,6 +213,7 @@ namespace imaker_sensor {
                 Generator.addCode(`digitalRead(${inputModulePin})`);
             }
             else{
+                Generator.addInclude("include_K10", `#include "unihiker_k10.h"`);
                 Generator.addCode(`digital_read(${inputModulePin})`);
             }
         }
@@ -254,13 +255,15 @@ namespace imaker_sensor {
     export function outputDigitalModule(parameter: any, block: any) {
         let outputModule = parameter.OUTPUTMODULEDIGITAL.code;
         let outputModulePin = parameter.ODMPIN.code;
-        let level = parameter.LEVEL.code;
+        let level = parameter.LEVEL.code;        
+        
+    
         if (outputModulePin == 'P0' || outputModulePin == 'P1'){
             Generator.addSetup(`pinMode_${outputModulePin}`,`pinMode(${outputModulePin}, OUTPUT);`);
             Generator.addCode(`digitalWrite(${outputModulePin}, ${level});`);
         }
         else{
-
+            Generator.addInclude("include_K10", `#include "unihiker_k10.h"`);
             Generator.addCode(`digital_write(${outputModulePin}, ${level});`);
         }
     }
