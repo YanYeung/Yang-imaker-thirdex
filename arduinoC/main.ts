@@ -190,32 +190,40 @@ enum PinLevel {
 namespace imaker_sensor {
     //% block="read [INPUTMODULEDIGITAL] on [IDMPIN]" blockType="boolean"
     //% INPUTMODULEDIGITAL.shadow="dropdown" INPUTMODULEDIGITAL.options="IDMDIGITAL" INPUTMODULEDIGITAL.defl="IDMDIGITAL.MAGNETIC_SENSOR"
-    //% IDMPIN.shadow="dropdown" IDMPIN.options="MOTORBIT_PIN_DigitalRead"
+    //% IDMPIN.shadow="dropdown" IDMPIN.options="PIN_DigitalRead"
     export function inputDigitalModule(parameter: any, block: any) {
         let inputModule = parameter.INPUTMODULEDIGITAL.code;
         let inputModulePin = parameter.IDMPIN.code;
         
-        if(Generator.board === 'pico'){//如果是pico板，生成如下代码
+        if(Generator.board === 'pico' || Generator.board === 'firebeetleesp32e'){//如果是pico板，生成如下代码
             Generator.addSetup(`pinMode_${inputModulePin}`,`pinMode(${inputModulePin}, INPUT);`);
-        }
-        if(inputModule === 'BUTTON'){//如果是按键，生成如下代码
-            if (inputModulePin == 'P0' || inputModulePin == 'P1'){
-                Generator.addSetup(`pinMode_${inputModulePin}`,`pinMode(${inputModulePin}, INPUT);`);
+            if(inputModule === 'BUTTON'){
                 Generator.addCode(`!digitalRead(${inputModulePin})`);
             }
             else{
-                Generator.addCode(`!digital_read(${inputModulePin})`);
-            }
-        }
-        else{//其他传感器，生成如下代码
-            if (inputModulePin == 'P0' || inputModulePin == 'P1'){
-                Generator.addSetup(`pinMode_${inputModulePin}`,`pinMode(${inputModulePin}, INPUT);`);
                 Generator.addCode(`digitalRead(${inputModulePin})`);
             }
-            else{
-                Generator.addCode(`digital_read(${inputModulePin})`);
-            }
         }
+        else if(Generator.board === 'esp32s3bit'){
+            if(inputModule === 'BUTTON'){//如果是按键，生成如下代码
+                if (inputModulePin == 'P0' || inputModulePin == 'P1'){
+                    Generator.addSetup(`pinMode_${inputModulePin}`,`pinMode(${inputModulePin}, INPUT);`);
+                    Generator.addCode(`!digitalRead(${inputModulePin})`);
+                }
+                else{
+                    Generator.addCode(`!digital_read(${inputModulePin})`);
+                }
+            }
+            else{//其他传感器，生成如下代码
+                if (inputModulePin == 'P0' || inputModulePin == 'P1'){
+                    Generator.addSetup(`pinMode_${inputModulePin}`,`pinMode(${inputModulePin}, INPUT);`);
+                    Generator.addCode(`digitalRead(${inputModulePin})`);
+                }
+                else{
+                    Generator.addCode(`digital_read(${inputModulePin})`);
+                }
+            }
+    }
     }
 
     //% block="read [INPUTMODULEANALOG] on [IAMPIN]" blockType="reporter"
@@ -249,21 +257,27 @@ namespace imaker_sensor {
 
     //% block="write [OUTPUTMODULEDIGITAL] on [ODMPIN] [LEVEL]" blockType="command"
     //% OUTPUTMODULEDIGITAL.shadow="dropdown" OUTPUTMODULEDIGITAL.options="ODMDIGITAL" OUTPUTMODULEDIGITAL.defl="ODMDIGITAL.LED"
-    //% ODMPIN.shadow="dropdown" ODMPIN.options="MOTORBIT_PIN_DigitalWrite"
+    //% ODMPIN.shadow="dropdown" ODMPIN.options="PIN_DigitalWrite"
     //% LEVEL.shadow="dropdown" LEVEL.options="PinLevel" LEVEL.defl="PinLevel.HIGH"
     export function outputDigitalModule(parameter: any, block: any) {
         let outputModule = parameter.OUTPUTMODULEDIGITAL.code;
         let outputModulePin = parameter.ODMPIN.code;
         let level = parameter.LEVEL.code;
-        if (outputModulePin == 'P0' || outputModulePin == 'P1'){
-            Generator.addSetup(`pinMode_${outputModulePin}`,`pinMode(${outputModulePin}, OUTPUT);`);
-            Generator.addCode(`digitalWrite(${outputModulePin}, ${level});`);
-        }
-        else{
+        if(Generator.board === 'esp32s3bit'){
+            if (outputModulePin == 'P0' || outputModulePin == 'P1'){
+                Generator.addSetup(`pinMode_${outputModulePin}`,`pinMode(${outputModulePin}, OUTPUT);`);
+                Generator.addCode(`digitalWrite(${outputModulePin}, ${level});`);
+            }
+            else{
 
-            Generator.addCode(`digital_write(${outputModulePin}, ${level});`);
-        }
+                Generator.addCode(`digital_write(${outputModulePin}, ${level});`);
+            }
     }
+    else if(Generator.board === 'firebeetleesp32e'){
+        Generator.addSetup(`pinMode_${outputModulePin}`,`pinMode(${outputModulePin}, OUTPUT);`);
+        Generator.addCode(`digitalWrite(${outputModulePin}, ${level});`);
+    }
+}
 
     //% block="set [OUTPUTMODULEDIGITAL] on [ODMPIN] brightness [BRIGHTNESS]" blockType="command"
     //% OUTPUTMODULEDIGITAL.shadow="dropdown" OUTPUTMODULEDIGITAL.options="ODMDIGITAL" OUTPUTMODULEDIGITAL.defl="ODMDIGITAL.LED"
