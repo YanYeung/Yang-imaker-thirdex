@@ -23,9 +23,7 @@
             ["P13", "eP13"],
             ["P14", "eP14"],
             ["P15", "eP15"]
-		],
-        "default_trafficLight_PIN1": "P2",
-        "default_trafficLight_PIN2": "P3"
+		]
 	},
 	"PIN_DigitalRead": {
 		"menu": [
@@ -37,9 +35,7 @@
             ["P13", "eP13"],
             ["P14", "eP14"],
             ["P15", "eP15"]
-		],
-        "default_readUlrasonicSensor_TRIGPIN": "P2",
-        "default_readUlrasonicSensor_ECHOPIN": "P3"
+		]
 	},
 	"PINMODE":{
 		"menu": [
@@ -48,30 +44,5 @@
             ["OUTPUT", "OUTPUT"],
             ["INPUT_PULLUP", "INPUT_PULLUP"]
 		]
-	},
-      "MOTORBIT_PIN_DigitalRead": {
-		"menu": [
-            ["P0", "P0"],
-            ["P1", "P1"],
-            ["P2", "eP2"],
-            ["P8", "eP8"],
-            ["P12", "eP12"],
-            ["P13", "eP13"],
-            ["P14", "eP14"],
-            ["P15", "eP15"]
-		]
-	},
-      "MOTORBIT_PIN_DigitalWrite": {
-		"menu": [
-            ["P0", "P0"],
-            ["P1", "P1"],
-            ["P2", "eP2"],
-            ["P8", "eP8"],
-            ["P12", "eP12"],
-            ["P13", "eP13"],
-            ["P14", "eP14"],
-            ["P15", "eP15"]
-		]
 	}
-
 }
