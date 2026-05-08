@@ -179,13 +179,6 @@ enum ONEBUTTONTRIG {
     false,
 }
 
-enum PinLevel {
-    //% block="HIGH"
-    HIGH,
-    //% block="LOW"
-    LOW
-}
-
 //% color="#5650a5" iconWidth=50 iconHeight=40
 namespace imaker_sensor {
     //% block="read [INPUTMODULEDIGITAL] on [IDMPIN]" blockType="boolean"
@@ -223,7 +216,7 @@ namespace imaker_sensor {
                     Generator.addCode(`digital_read(${inputModulePin})`);
                 }
             }
-    }
+        }
     }
 
     //% block="read [INPUTMODULEANALOG] on [IAMPIN]" blockType="reporter"
@@ -269,15 +262,14 @@ namespace imaker_sensor {
                 Generator.addCode(`digitalWrite(${outputModulePin}, ${level});`);
             }
             else{
-
                 Generator.addCode(`digital_write(${outputModulePin}, ${level});`);
             }
+        }
+        else if(Generator.board === 'firebeetleesp32e'){
+            Generator.addSetup(`pinMode_${outputModulePin}`,`pinMode(${outputModulePin}, OUTPUT);`);
+            Generator.addCode(`digitalWrite(${outputModulePin}, ${level});`);
+        }
     }
-    else if(Generator.board === 'firebeetleesp32e'){
-        Generator.addSetup(`pinMode_${outputModulePin}`,`pinMode(${outputModulePin}, OUTPUT);`);
-        Generator.addCode(`digitalWrite(${outputModulePin}, ${level});`);
-    }
-}
 
     //% block="set [OUTPUTMODULEDIGITAL] on [ODMPIN] brightness [BRIGHTNESS]" blockType="command"
     //% OUTPUTMODULEDIGITAL.shadow="dropdown" OUTPUTMODULEDIGITAL.options="ODMDIGITAL" OUTPUTMODULEDIGITAL.defl="ODMDIGITAL.LED"
